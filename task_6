@@ -1,0 +1,443 @@
+
+#1
+
+class Student {
+
+
+    int studentId;
+    String studentName;
+    double studentMarks;
+    
+
+    Student() {
+        studentId = 0;
+        studentName = "Unknown";
+        studentMarks = 0.0;
+        System.out.println("\n[Default Constructor]");
+        displayDetails();
+    }
+    
+    
+    Student(int id, String name) {
+
+        studentId = id;
+        studentName = name;
+        studentMarks = 0.0;
+        System.out.println("\n[Parameterized Constructor - 2 params]");
+        displayDetails();
+    }
+    
+
+    Student(int id, String name, double marks) {
+
+        studentId = id;
+        studentName = name;
+        studentMarks = marks;
+        System.out.println("\n[Parameterized Constructor - 3 params]");
+        displayDetails();
+    }
+    
+
+    void displayDetails() {
+
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Student Marks: " + studentMarks);
+        System.out.println("------------------------");
+    }
+    
+
+    public static void main(String[] args) {
+
+
+        System.out.println("=== Constructor Implementation Demo ===");
+
+        
+        Student s1 = new Student();                   
+        Student s2 = new Student(101, "Alice");        
+        Student s3 = new Student(102, "Bob", 85.5);   
+        Student s4 = new Student(103, "Charlie", 92.0); 
+        Student s5 = new Student(104, "Diana");        
+    }
+}
+
+
+
+#2
+
+public class Person {
+    String name = "Rahul";
+    int age = 28;
+
+    void displayPerson() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+    public static void main(String[] args) {
+        System.out.println("Employee Details:");
+        Employee e = new Employee();
+        e.displayEmployee();
+
+        System.out.println("\nManager Details:");
+        Manager m = new Manager();
+        m.displayManager();
+    }
+}
+class Employee extends Person {
+    int empId = 101;
+    double salary = 50000;
+
+    void displayEmployee() {
+        System.out.println("Name: " + name); // inherited variable
+        System.out.println("Age: " + age);
+        System.out.println("Employee ID: " + empId);
+        System.out.println("Salary: " + salary);
+    }
+}
+class Manager extends Employee {
+    String department = "IT";
+    void displayManager() {
+        System.out.println("Name: " + name); // inherited variable
+        System.out.println("Age: " + age);
+        System.out.println("Employee ID: " + empId);
+        System.out.println("Salary: " + salary);
+        System.out.println("Department: " + department);
+    }
+}
+
+
+
+
+#3
+
+
+
+class Payment {
+
+    void pay(int amount) {
+        System.out.println("Paying amount: " + amount);
+    }
+
+    void pay(int amount, String currency) {
+        System.out.println("Paying " + amount + " " + currency);
+    }
+
+
+    void paymentMethod() {
+        System.out.println("General Payment Method");
+    }
+}
+class CreditCardPayment extends Payment {
+    @Override
+    void paymentMethod() {
+        System.out.println("Payment using Credit Card");
+    }
+}
+
+class UPIPayment extends Payment {
+    @Override
+    void paymentMethod() {
+        System.out.println("Payment using UPI");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+
+        Payment p = new Payment();
+        p.pay(500);
+        p.pay(1000, "INR");
+
+        Payment p1 = new CreditCardPayment();
+        Payment p2 = new UPIPayment();
+
+        p1.paymentMethod();
+        p2.paymentMethod();
+    }
+}
+
+
+
+#4
+
+import java.io.*;
+import java.util.Scanner;
+
+public class FileHandlingDemo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String filename = "students.txt";
+        
+        System.out.println("=== Enter Student Details ===");
+        System.out.print("Enter Student ID: ");
+        String id = scanner.nextLine();
+        System.out.print("Enter Student Name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter Student Age: ");
+        String age = scanner.nextLine();
+        System.out.print("Enter Student Course: ");
+        String course = scanner.nextLine();
+        
+        try (FileWriter fw = new FileWriter(filename);
+
+             BufferedWriter bw = new BufferedWriter(fw)) {
+            
+            bw.write("Student ID: " + id);
+            bw.newLine();
+            bw.write("Student Name: " + name);
+            bw.newLine();
+            bw.write("Student Age: " + age);
+            bw.newLine();
+            bw.write("Student Course: " + course);
+            bw.newLine();
+            bw.write("----------------------");
+            
+            System.out.println("\n✓ Student details saved to " + filename + "\n");
+            
+        } catch (IOException e) {
+            System.out.println("Error writing file: " + e.getMessage());
+        }
+        
+        System.out.println("=== Reading Student Details from File ===");
+        try (FileReader fr = new FileReader(filename);
+             BufferedReader br = new BufferedReader(fr)) {
+            
+            String line;
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found!");
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        
+        scanner.close();
+    }
+}
+
+
+
+#5
+
+
+import java.util.Scanner;
+
+public class StudentDetails {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        String name;
+        int rollNo;
+        float marks;
+
+        System.out.println("Enter Student Name:");
+        name = sc.nextLine();
+
+        System.out.println("Enter Roll Number:");
+        rollNo = sc.nextInt();
+
+        System.out.println("Enter Marks:");
+        marks = sc.nextFloat();
+
+        System.out.println("\n----- Student Details -----");
+
+        System.out.println("Student Name : " + name);
+        System.out.println("Roll Number  : " + rollNo);
+        System.out.println("Marks        : " + marks);
+
+        if (marks >= 40) {
+            System.out.println("Result       : Pass");
+        } else {
+            System.out.println("Result       : Fail");
+        }
+
+        sc.close();
+
+        System.out.println("---------------------------");
+    }
+}
+
+
+#6
+
+public class LoopTask6 {
+    public static void main(String[] args) {
+
+        System.out.println("Numbers from 1 to 10:");
+        for (int i = 1; i <= 10; i++) {
+            System.out.print(i + " ");
+        }
+
+        System.out.println();
+
+        System.out.println("\nMultiplication Table of 5:");
+        int num = 5;
+        int j = 1;
+
+        while (j <= 10) {
+            System.out.println(num + " x " + j + " = " + (num * j));
+            j++;
+        }
+
+        int sum = 0;
+        int k = 1;
+
+        do {
+            sum = sum + k;
+            k++;
+        } while (k <= 10);
+
+        System.out.println("\nSum of numbers from 1 to 10:");
+        System.out.println(sum);
+
+        System.out.println("\nProgram Completed");
+
+    }
+}
+
+
+
+
+
+#7
+
+public class ArrayProgram {
+    public static void main(String[] args) {
+
+        int[] marks = new int[5];
+
+        marks[0] = 78;
+        marks[1] = 85;
+        marks[2] = 90;
+        marks[3] = 67;
+        marks[4] = 88;
+
+        int total = 0;
+
+        System.out.println("Student Marks:");
+
+        for (int i = 0; i < marks.length; i++) {
+
+            System.out.println("Student " + (i + 1) +
+                               " Marks: " + marks[i]);
+
+            total = total + marks[i];
+        }
+
+        double average = (double) total / marks.length;
+
+        System.out.println();
+        System.out.println("Total Marks = " + total);
+
+        System.out.println("Average Marks = " + average);
+
+        System.out.println();
+        System.out.println("Array Program Completed");
+    }
+}
+
+
+#8
+
+
+
+package mypackage;
+
+public class Student {
+    int rollNo = 101;
+    String name = "Rahul";
+
+    public void display() {
+
+        System.out.println("Student Roll No: " + rollNo);
+        System.out.println("Student Name: " + name);
+
+    }
+}
+
+import mypackage.Student;
+
+public class PackageCreation {
+    public static void main(String[] args) {
+
+        Student s = new Student();
+
+       
+        System.out.println("User Defined Package Program");
+        System.out.println("-----------------------------");
+
+        
+        s.display();
+
+        System.out.println();
+        System.out.println("Package Created Successfully");
+        System.out.println("Package Imported Successfully");
+        System.out.println("Package Class Used Successfully");
+        System.out.println("Program Executed Successfully");
+
+    }
+}
+
+
+
+#9
+
+
+
+class MyThread extends Thread {
+    public void run() {
+
+        for (int i = 1; i <= 5; i++) {
+
+            System.out.println("Thread is running: " + i);
+
+            try {
+
+                // Pause thread for 1 second
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+
+                System.out.println("Thread Interrupted");
+
+            }
+        }
+        System.out.println("Thread Execution Completed");
+
+    }
+}
+public class MultiThreadProgram {
+
+    public static void main(String[] args) {
+
+        System.out.println("Main Method Started");
+        MyThread t1 = new MyThread();
+
+        t1.start();
+
+        System.out.println("Main Method Executed");
+        System.out.println("Program Completed");
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
